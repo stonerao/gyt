@@ -1,0 +1,186 @@
+<template>
+	<div class="reg">
+		<img :src="imgHead" class="reg-head">
+		<div class="reg-info">
+			<ul class="reg-list">
+				<li>
+					<input type="text" name="" class="select" placeholder="用户名" v-model="username">
+				</li>
+				<li>
+					<input type="text" name="" class="select" placeholder="手机号码" v-model="member_mobile">
+				</li>
+				<li>
+					<input type="password" name="" class="select" placeholder="请输入密码" v-model="password">
+				</li>
+				<li>
+					<input type="password" name="" class="select" placeholder="确认密码" v-model="password_confirm">
+				</li>
+				<!-- <li>
+					<input type="text" name="" class="phone-code" placeholder="请输入验证码" v-model="mathCode">
+					<img :src="imgSrc" class="get-code" @click="imgSrcs">
+				</li> -->
+				<li>
+					<input type="text" name="" class="phone-code" placeholder="请输入手机验证码" v-model="mobilecode">
+					<button class="get-code"  @click="mobilecodes
+					">获取验证码</button>
+				</li>
+				<li class="http" @click="agreement"><div class=" click" v-bind:class="{'select-click':isAgreement}"></div>我已同意《观影通》用户使用协议</li>
+				<li>
+					<button class="reg-ok" @click="reg">注册</button>
+				</li>
+			</ul>
+		</div>
+		<!-- <span class="modal-box">恭喜您注册成功</span> -->
+	</div>
+</template>
+<script>
+	/*引入公共样式*/
+	import 'common/css/global.css'
+	import img1 from './images/reg.png'
+
+	import dataStore from './js/data'
+	/*同意协议*/
+	export default{
+		data(){
+			return {
+				isAgreement:false,
+				imgHead:img1,
+				isMobilec:true,
+				username:"",//用户名
+				password:"",//密码
+				password_confirm:"",//确认密码
+				member_mobile:"",//手机号码
+				mobilecode:"",//手机验证码
+				mathCode:"",//验证码
+				imgSrc:"",//验证码链接
+				num:60,
+			}
+		},
+		methods:{
+			agreement(){
+				this.isAgreement=!this.isAgreement;
+			},
+			mobilecodes(){
+				dataStore.codePhone.call(this);
+				/*if(this.isMobilec){
+					this.isMobilec = false;
+					var time = setInterval(()=>{
+						this.num--;
+						if(this.num == 0){
+							this.isMobilec = true;
+							clearInterval(time)
+						}
+					},100)
+				}else{
+					
+				}*/
+
+				
+			},
+			reg(){
+				// if(!this.isAgreement&&this.username&&this.password&&this.password_confirm&&this.member_mobile&&this.mathCode){
+				// 	return
+				// }
+				dataStore.data.call(this);
+			},
+			imgSrcs(){
+				dataStore.mathCode.call(this);
+			}
+		},
+		created(){
+			dataStore.mathCode.call(this);//哈希
+		}
+	}
+</script>
+<style type="text/css">
+	html,body{
+		background:#fff !important;
+	}
+	.reg{
+		position:relative;
+		padding-top:21.35%;
+		width:100%;
+	}
+	.reg-head{
+		width:53.7%;
+		position:relative;
+		left:50%;
+		transform: translate(-50%,0);
+		margin-bottom:.35rem;
+	}
+	.reg-info{
+		position:relative;
+		width:84%;
+		margin:0 auto;
+	}
+	.reg-list>li{
+		margin-bottom:.1rem;
+	}
+	.select{
+		height:.35rem;
+		width:100%;
+		background:#f4f4f4;
+		border-radius:0.15rem;
+		text-indent:.2rem;
+		border:0;
+	}
+	.phone-code{
+		width:59%;
+		height:.35rem;
+		background:#f4f4f4;
+		border-radius:0.15rem;
+		text-indent:.2rem;
+		border:0;
+	}
+	.get-code{
+		width:39%;
+		float:right;
+		height:.35rem;
+		background:#ff3366;
+		border-radius:0.15rem;
+		text-align:center;
+		border:0;
+		color:#fff;
+	}
+	.reg-ok{
+		background:#48cfae;
+		border-radius:0.15rem;
+		border:0;
+		width:100%;
+		height:0.35rem;
+		color:#fff;
+		position:relative;
+		left: 50%;
+		margin-top:0.455rem;
+		transform: translate(-50%,0);
+		font-size:.16rem;
+		letter-spacing:.16rem;
+		text-indent:.08rem;
+	}
+	.http{
+		position:relative;
+		height:0.25rem;
+		line-height:0.25rem;
+		text-indent:.2rem
+	}
+	.click{
+		width:0.125rem;
+		height:0.125rem;
+		position:absolute;
+		background:#e5e5e5;
+		border-radius:50%;
+		top:50%;
+		transform: translate(0,-50%);
+	}
+	.select-click:before{
+		content: "";
+		position:absolute;
+		width:0.06rem;
+		height:0.06rem;
+		background:#ff3366;
+		border-radius:50%;
+		left:50%;
+		top:50%;
+		transform: translate(-50%,-50%);
+	}
+</style>

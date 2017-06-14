@@ -1,0 +1,75 @@
+import utils from 'common/js/utils'
+export default {
+  getDis() {
+      let login = utils.getLocationLogin();
+      if (!login.key) {
+        location.replace(utils.urls.loginUrl + '?_=' + encodeURIComponent(location.href))
+        return
+      }
+      let body = 'key=' + login.key + '&order_amount=' + this.price + '&deduction_pass=' + this.discountVal
+      fetch(utils.dataUrl.deductionUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: body,
+      }).then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        }
+      }).then((res) => {
+        console.log(res)
+        if (res.code === 200) {
+          this.goMoney = res.datas.denomination
+          this.discount = this.goMoney + this.goPayMoney
+          this.lastPrice = (this.price - this.discount).toFixed(2)
+        }
+      })
+    },
+    order() {
+      let login = utils.getLocationLogin();
+      if (!login.key) {
+        location.replace(utils.urls.loginUrl + '?_=' + encodeURIComponent(location.href))
+        return
+      }
+      let body = 'key=' + login.key 
+      + '&cinemaId=' + this.parmsData.cinema.id 
+      + '&cinema_name=' + this.parmsData.cinema.name 
+      + '&is_deduction=' + ((this.isVout && this.isDeduction)||(this.isVouts && this.isDeduction)?1:0)
+      + '&deduction_pass=' + this.discountVal
+      + '&is_tongdui=' + (this.isPay?1:0)
+      + '&tongdui_pass=' + this.payVal
+      + '&goods_id=' + this.parmsData.movie.id
+      + '&goods_name=' + this.parmsData.movie.name
+      + '&goods_price=' + this.parmsData.showtime.oPrice
+      + '&goods_priceafter=' + (this.parmsData.showtime.exchange_price/100).toFixed(2)
+      + '&goods_num=' + this.parmsData.selectData.length
+      + '&goods_image=' + this.parmsData.movie.img
+      + '&showtimeId=' + this.parmsData.showtime.id
+      + '&seatIds=' + this.parmsData.selectData.map(item=>{return item.id}).join(',')
+      + '&seats_name=' + this.parmsData.selectData.map(item=>{return item.name}).join(',')
+      + '&is_paypd=' + (!this.isVout?0:1)
+      + '&password=' + this.password
+      + '&cinemahalls=' + this.parmsData.showtime.hallname
+      fetch(utils.dataUrl.submitOrderUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: body,
+      }).then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        } 
+      }).then((res) => {
+        console.log(res)
+        if (res.code === 200) {
+          alert('支付成功');
+          console.log(res.datas)
+          location.replace(utils.urls.orderInfoUrl + '?good_id=' + res.datas.order_id+"&order_sn="+res.datas.order_sn)
+        }else {
+          alert(res.datas.error)
+        }
+      })
+    }
+}

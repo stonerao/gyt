@@ -1,0 +1,59 @@
+<template>
+  <div class="credit">
+    <div class="top-head">
+      <div class="title"><i class="icon-circle"></i>充值记录</div>
+    </div>
+    <div class="credit-list bg-fff">
+      <div class="item" v-for="credit in credits">
+        <div class="time">{{credit.add_time}}</div>
+        <div class="des">充值￥{{parseFloat(credit.available_amount)}}</div>
+      </div>
+    </div>
+    
+  </div>
+</template>
+<script>
+import utils from 'common/js/utils'
+import dataStore from './js/data'
+import 'common/css/global.css'
+
+export default {
+  data(){
+    return{
+      curpage:1,
+      page:"1",
+      credits:[]
+    }
+  },
+  methods: {
+    handleScroll () {
+      this.scrolled = window.scrollY > 0;
+      if((document.body.clientHeight-window.screen.availHeight)==window.scrollY){
+        this.curpage++;
+        dataStore.data.call(this)
+      }
+    }    
+  },
+  created(){
+    dataStore.data.call(this);
+    window.addEventListener('scroll', this.handleScroll);
+  }
+}
+</script>
+<style lang="css">
+.credit-list .item {
+  display: flex;
+  padding: 0 0.15rem;
+  border-bottom: 0.01rem solid #f2f2f2;
+  color: #8d8d8d;
+  line-height: 0.4rem;
+  font-size: 0.12rem;
+}
+.credit-list .item .time {
+  flex: 1;
+}
+.credit-list .item .des {
+  flex: 1;
+  text-align: right;
+}
+</style>

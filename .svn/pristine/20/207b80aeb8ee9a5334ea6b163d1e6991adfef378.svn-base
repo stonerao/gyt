@@ -1,0 +1,47 @@
+import utils from 'common/js/utils'
+
+export default {
+  getInfo() {
+      let parmsId = utils.getLocation().id; //城市ID
+      let filmId = this.good_id; //影片
+      let timeData = this.timeDate //时间
+        // console.log(utils.dataUrl.cinemaInfoUrl + "&locationId=" + parmsId + "&date=" + timeData + "&movieid=" + filmId)
+      fetch(utils.dataUrl.cinemaInfoUrl + "&locationId=" + parmsId + "&date=" + timeData + "&movieid=" + filmId)
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((res) => {
+          // 如果没有数据
+          for (var key in res.datas) {
+            if (res.datas[key] == null) {
+              return
+            }
+          }
+          this.showtimes = res.datas.map(item => ({
+            id: item.id,
+            name: item.name,
+            address: item.address
+          }));
+        })
+    },
+    getDate() {
+      let id = this.good_id
+      console.log('http://gyt.test.kh888.cn/index.php?m=mobile&c=shiguang_interface&a=movies_detail' + (id ? '&movieIds=' + id : ''))
+      fetch('http://gyt.test.kh888.cn/index.php?m=mobile&c=shiguang_interface&a=movies_detail' + (id ? '&movieIds=' + id : ''))
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((res) => {
+          console.log(res)
+          this.filmData = res.datas[0]
+          this.type = this.filmData.types.join(' ')
+          document.title = this.filmData.titleCn
+            // this.des = this.data.plot.substr(0, 100) + '...'
+        })
+
+    }
+}

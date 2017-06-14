@@ -1,0 +1,117 @@
+<template>
+	<div class="login">
+		<img :src="imgHead" class="login-head">
+		<div class="login-info">
+			<ul class="login-list">
+				<li>
+					<input type="text" name="" class="username select inp" v-model="username">
+				</li>
+				<li>
+					<input type="password" name="" class="password select inp" v-model="password">
+				</li>
+				<li>
+					<button class="login-ok inp" v-on:click="login">确定登录</button>
+				</li>
+				<li class="login-option">
+					<a :href="urls.recallUrl" class="forget">忘记密码</a>
+					<a :href="urls.registerUrl" class="register">注册</a>
+				</li>
+			</ul>
+		</div>
+		<span class="modal-box" v-show="regs.isFous">{{regs.reg_html}}</span>
+	</div>
+</template>
+<script>
+
+	import utils from 'common/js/utils'	
+	import 'common/css/global.css'
+	import img1 from './images/font-h1.png'
+
+	import dataStore from './js/data'
+	
+	export default{
+		data(){
+			return{
+				imgHead:img1,
+				username:"",
+				password:"",
+				urls:utils.urls,
+				regs:{
+					isFous:false,
+					reg_html:""
+				}
+			}
+		},
+		methods:{
+			login(){
+				dataStore.data.call(this);
+			}
+		},
+	}
+</script>
+<style type="text/css">
+	body{
+		width:100%;
+		background-image:url(./images/loginBackground.jpg);
+		background-repeat:no-repeat;
+		background-size: cover;
+	}
+	.login{
+		position:absolute;
+		top:40%;
+		width:100%;
+	}
+	.login-head{
+		width:53.7%;
+		position:relative;
+		left:50%;
+		transform: translate(-50%,0);
+		margin-bottom:0.65rem;
+	}
+	.login-info{
+		position:relative;
+		width:84%;
+		margin:0 auto;
+
+	}
+
+	.login-list .username{
+		background-image:url(./images/username.png);
+	}
+	.login-list .password{
+		background-image:url(./images/password.png);
+	}
+	.select{
+		background:rgba(0,0,0,0.6);
+		border-radius:0.15rem;
+		padding-left:.5rem;
+		color:#fff;
+		background-size:.26rem;
+		background-position:0.15rem 0.07rem;
+		background-repeat: no-repeat;
+	}
+	.inp{
+		height:.4rem;
+		border-radius:0.15rem;
+		border:0;
+		width:100%;
+		border-radius:.4rem;
+		margin-bottom:.15rem;
+	}
+	.login-ok{
+		background:#48cfae;
+		color:#fff;
+		font-size:.16rem;
+	}
+	.login-option a{
+		color:#fff;
+		padding:0 .2rem;
+		margin-top:0.12rem;
+	}
+	.login-option .forget{
+		float: left;
+	}
+	.login-option .register{
+		float:right;
+	}
+</style>

@@ -1,7 +1,7 @@
 var URL = "http://byfoli.kh888.cn/";
 export default {
   urls: {
-    urls_or:URL,
+    urls_or: URL,
     homeUrl: 'index.html',
     ticketUrl: 'ticket.html',
     cinemaUrl: 'cinema.html',
@@ -22,41 +22,49 @@ export default {
     memberUrl: 'member.html',
     creditUrl: "credit.html",
     detailedUrl: "detailed.html",
-    cinemaInfoUrl:"cinema.info.html",
-    confirmUrl:"confirm.html",
+    cinemaInfoUrl: "cinema.info.html",
+    confirmUrl: "confirm.html",
   },
   dataUrl: {
-    cityUrl: URL+'index.php?m=mobile&c=shiguang_interface&a=city_list',
-    indexUrl: URL+'index.php?m=mobile&c=shiguang_interface&a=getmovies_city',
-    bannerUrl: URL+'index.php?m=mobile&c=movies_index&a=index',
-    ticketUrl: URL+'index.php?m=mobile&c=shiguang_interface&a=getmovies_city',
-    cinemaUrl: URL+'index.php?m=mobile&c=shiguang_interface&a=getenablecinemas',
-    cinemaDetailUrl: URL+'index.php?m=mobile&c=shiguang_interface&a=cinema',
-    cinemaMovieDataUrl: URL+'index.php?m=mobile&c=shiguang_interface&a=cinema_list',
-    cinemaShowtimesUrl: URL+'index.php?m=mobile&c=shiguang_interface&a=getShowtimesInMovie',
-    showtimesUrl:URL+'index.php?m=mobile&c=shiguang_interface&a=getshowtimeseats',
-    recallUrl:URL+'index.php?m=mobile&c=login&a=send_msg', //发送验证码
-    registerUrl:URL+'index.php?m=mobile&c=login&a=register', //注册
-    loginUrl:URL+'index.php?m=mobile&c=login&a=index', //登录
-    personUrl:URL+'index.php?m=mobile&c=member_index&a=index', //会员中心
-    rechargeUrl: URL+'index.php?m=mobile&c=member_fund&a=wx_recharge_add', //充值中心
-    chargeUrl:URL+'index.php?m=mobile&c=member_fund&a=rechargecard_add', //充值卡充值
-    nchashUrl: URL+"index.php?m=mobile&c=seccode&a=makecodekey", //产生验证码 哈希
-    makecodeUrl: URL+"index.php?m=mobile&c=seccode&a=makecode", //验证码图片
-    findPassword: URL+'index.php?m=mobile&c=find_password&a=send_msg', //发送短信(手机验证码)
-    findPasswordTwo: URL+'index.php?m=mobile&c=find_password&a=check_sms_captcha', //确定
-    ajaxUrl: URL+'index.php?m=mobile&c=seccode&a=check', //ajax验证
-    changeUrl: URL+'index.php?m=mobile&c=find_password&a=find_password', //确定密码
-    creditUrl: URL+'index.php?m=mobile&c=member_fund&a=rcblog', //充值记录
-    userUrl: URL+'index.php?m=mobile&c=member_index&a=modify_passwd', //会员信息
-    orderUrl: URL+'index.php?m=mobile&c=movie_order&a=order_list', //订单列表
-    infoOrderUrl: URL+'index.php?m=mobile&c=movie_order&a=order_info', //订单详情
-    userMoneyUrl:URL+'index.php?m=mobile&c=member_pd&a=predeposit_info', //个人
-    detailedUrl: URL+'index.php?m=mobile&c=member_fund&a=predepositlog', //明细
-    cinemaInfoUrl: URL+'index.php?m=mobile&c=shiguang_interface&a=movies_cinema', //明细
-    submitOrderUrl: URL+'index.php?m=mobile&c=member_buy&a=moviebuy_step2', 
-    youhuiUrl:URL+'index.php?m=mobile&c=member_buy&a=deduction',//优惠券
-    weixinUrl:URL+'index.php?m=mobile&c=member_payment&a=movie_pay'//if weixin
+    cityUrl: URL + 'index.php?m=mobile&c=shiguang_interface&a=city_list',
+    indexUrl: URL + 'index.php?m=mobile&c=shiguang_interface&a=getmovies_city',
+    bannerUrl: URL + 'index.php?m=mobile&c=movies_index&a=index',
+    ticketUrl: URL + 'index.php?m=mobile&c=shiguang_interface&a=getmovies_city',
+    cinemaUrl: URL +
+      'index.php?m=mobile&c=shiguang_interface&a=getenablecinemas',
+    cinemaDetailUrl: URL + 'index.php?m=mobile&c=shiguang_interface&a=cinema',
+    cinemaMovieDataUrl: URL +
+      'index.php?m=mobile&c=shiguang_interface&a=cinema_list',
+    cinemaShowtimesUrl: URL +
+      'index.php?m=mobile&c=shiguang_interface&a=getShowtimesInMovie',
+    showtimesUrl: URL +
+      'index.php?m=mobile&c=shiguang_interface&a=getshowtimeseats',
+    recallUrl: URL + 'index.php?m=mobile&c=login&a=send_msg', //发送验证码
+    registerUrl: URL + 'index.php?m=mobile&c=login&a=register', //注册
+    loginUrl: URL + 'index.php?m=mobile&c=login&a=index', //登录
+    personUrl: URL + 'index.php?m=mobile&c=member_index&a=index', //会员中心
+    rechargeUrl: URL + 'index.php?m=mobile&c=member_fund&a=wx_recharge_add', //充值中心
+    chargeUrl: URL + 'index.php?m=mobile&c=member_fund&a=rechargecard_add', //充值卡充值
+    nchashUrl: URL + "index.php?m=mobile&c=seccode&a=makecodekey", //产生验证码 哈希
+    makecodeUrl: URL + "index.php?m=mobile&c=seccode&a=makecode", //验证码图片
+    findPassword: URL + 'index.php?m=mobile&c=find_password&a=send_msg', //发送短信(手机验证码)
+    findPasswordTwo: URL +
+      `index.php?m=mobile&c=find_password&a=check_sms_captcha`, //确定
+    ajaxUrl: URL + 'index.php?m=mobile&c=seccode&a=check', //ajax验证
+    changeUrl: URL + 'index.php?m=mobile&c=find_password&a=find_password', //确定密码
+    creditUrl: URL + 'index.php?m=mobile&c=member_fund&a=rcblog', //充值记录
+    userUrl: URL + 'index.php?m=mobile&c=member_index&a=modify_passwd', //会员信息
+    orderUrl: URL + 'index.php?m=mobile&c=movie_order&a=order_list', //订单列表
+    infoOrderUrl: URL + 'index.php?m=mobile&c=movie_order&a=order_info', //订单详情
+    userMoneyUrl: URL + 'index.php?m=mobile&c=member_pd&a=predeposit_info', //个人
+    detailedUrl: URL + 'index.php?m=mobile&c=member_fund&a=predepositlog', //明细
+    cinemaInfoUrl: URL +
+      'index.php?m=mobile&c=shiguang_interface&a=movies_cinema', //明细
+    submitOrderUrl: URL + 'index.php?m=mobile&c=member_buy&a=moviebuy_step2',
+    youhuiUrl: URL + 'index.php?m=mobile&c=member_buy&a=deduction', //优惠券
+    weixinUrl: URL + 'index.php?m=mobile&c=member_payment&a=movie_pay', //if weixin
+    ydtList: URL + 'index.php?m=mobile&c=places_interface&a=places_list', //ydt list
+    ydtInfo: URL + 'index.php?m=mobile&c=places_interface&a=places_detail', //ydt info
   },
   getRequest(str) {
     let url = ''
@@ -74,28 +82,32 @@ export default {
         theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
       }
     }
-    return { href: href, parms: theRequest };
+    return {
+      href: href,
+      parms: theRequest
+    };
   },
   errorImg(e) {
     let size = e.target.dataset.size;
     if (!size) {
       size = '1x1'
     }
-    e.target.src = 'http://placehold.it/' + e.target.dataset.size + '/e2e2e2/999?text=暂无图片'
+    e.target.src = 'http://placehold.it/' + e.target.dataset.size +
+      '/e2e2e2/999?text=暂无图片'
   },
   getLocation() {
     let _city = Object.assign({}, JSON.parse(localStorage.getItem('location')))
     return _city
   },
-  getLocationLogin(){
+  getLocationLogin() {
     //获取key
     let _city = Object.assign({}, JSON.parse(localStorage.getItem('LOGIN')))
-    return _city    
+    return _city
   },
-  setLocationLogin(val){
+  setLocationLogin(val) {
     //设置key
     localStorage.setItem('LOGIN', JSON.stringify(val))
-    return val    
+    return val
   },
   setLocation(val) {
     localStorage.setItem('location', JSON.stringify(val))
@@ -116,5 +128,8 @@ export default {
       return false;
     }
     return true;
+  },
+  go_page() {
+
   }
 }

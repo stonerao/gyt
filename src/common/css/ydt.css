@@ -19,7 +19,7 @@
 .header .header_box i{
 	display:inline-block;
 	height:100%;
-	width:0.3rem; 
+	width:0.3rem;
 	margin-left: 0.1rem;
 	background-image:url(../images/ydt/x1.png);
 	background-size:0.3rem auto;
@@ -52,7 +52,7 @@
 	border:0.09rem solid #f2f2f2;
 }
 .ydt_item .ydt_item_content{
-	
+
 }
 .ydt_item .ydt_item_content .ydt_item_title{
 	display:flex;
@@ -68,7 +68,7 @@
 }
 .ydt_item .ydt_item_text{
 	color:#666;
-	line-height:0.45rem; 
+	line-height:0.45rem;
 	display:flex;
 	vertical-align:middle;
 	justify-content:space-between;
@@ -100,7 +100,7 @@
 	border:0.09rem solid #f2f2f2;
 }
 .ydt_info .ydt_item_content{
-	
+
 }
 .ydt_info .ydt_item_content .ydt_item_title{
 	display:flex;
@@ -111,9 +111,9 @@
 	vertical-align:middle;
 }
 .ydt_info .ydt_item_content .ydt_item_title span{
- 
+
 	font-size:0.34rem;
- 
+
 }
 .ydt_info .ydt_item_content .ydt_item_title img{
 	height:0.3rem;
@@ -121,7 +121,7 @@
 }
 .ydt_info .ydt_item_text{
 	color:#fff;
-	line-height:0.45rem; 
+	line-height:0.45rem;
 	display:flex;
 	vertical-align:middle;
 	justify-content:space-between;
@@ -146,7 +146,7 @@
 .ydt_info_js .ydt_title{
 	margin-bottom:0.1rem;
 	font-size:0.32rem;
-	color:#000;	
+	color:#000;
 }
 .ydt_info_js .ydt_info_text{
 	font-size:0.28rem;
@@ -171,7 +171,7 @@
 	transform:translate(-50%,-50%);
 }
 .ydt_info_js .ydt_info_box img{
-	width:0.18rem; 
+	width:0.18rem;
 }
 .ydt_check{
 	margin-top:0.05rem;
@@ -186,4 +186,19 @@
 }
 .height_auto{
 	height:auto important;
+}
+.toggle{
+	position:absolute;
+	top:0.9rem;
+	background:#fff;
+	width:100%;
+	line-height:0.4rem;
+	max-width:7.5rem;
+	overflow:auto;
+}
+.toggle li{
+	text-align:left;
+	line-height:0.6rem;
+	padding:0 0.2rem;
+	border-bottom:0.02rem solid #ededed;
 }

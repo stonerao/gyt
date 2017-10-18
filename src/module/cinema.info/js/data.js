@@ -6,8 +6,12 @@ export default {
       let filmId = this.good_id; //影片
       let timeData = this.timeDate //时间
         // console.log(utils.dataUrl.cinemaInfoUrl + "&locationId=" + parmsId + "&date=" + timeData + "&movieid=" + filmId)
-      fetch(utils.dataUrl.cinemaInfoUrl + "&locationId=" + parmsId + "&date=" + timeData + "&movieid=" + filmId)
-        .then((response) => {
+      fetch(utils.dataUrl.cinemaInfoUrl + "&locationId=" + parmsId + "&date=" + timeData + "&movieid=" + filmId, {
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      }).then((response) => {
           if (response.status === 200) {
             return response.json()
           }
@@ -33,7 +37,12 @@ export default {
     },
     getDate() {
       let id = this.good_id;
-      fetch('http://byfoli.kh888.cn/index.php?m=mobile&c=shiguang_interface&a=movies_detail' + (id ? '&movieIds=' + id : ''))
+      fetch('http://byfoli.kh888.cn/index.php?m=mobile&c=shiguang_interface&a=movies_detail' + (id ? '&movieIds=' + id : ''), {
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      })
         .then((response) => {
           if (response.status === 200) {
             return response.json()
@@ -60,5 +69,20 @@ export default {
           // this.des = this.data.plot.substr(0, 100) + '...'
         })
 
+    },
+    get_wxopenid() {
+      fetch(utils.dataUrl.get_wxopenid + "&ref =" + encodeURIComponent(window.location.href), {
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      }).then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        }).then((res) => {
+
+
+        })
     }
 }

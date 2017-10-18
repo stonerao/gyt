@@ -47,6 +47,11 @@
 				dataStore.data.call(this);
 			}
 		},
+		// created(){
+		// 	if(utils.isWeiXin()){
+		// 		  window.location.href = "/index.php?m=mobile&c=auto&a=login&ref=" + encodeURIComponent(window.location.href);
+		// 	}
+		// }
 	}
 </script>
 <style type="text/css">

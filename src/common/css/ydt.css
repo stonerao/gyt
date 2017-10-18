@@ -2,30 +2,25 @@
 	display:flex;
 	justify-content:space-between;
 	background:#fff;
-	height:0.9rem;
+ 
 	line-height:0.9rem;
 	color:#7b7b7b;
 	text-align:center;
 	margin-bottom:0.05rem;
 	position:fixed;
-	top:0;
+	top:0.8rem;
 	width:100%;
+	z-index: 1000;
 }
 .header .header_box{
 	flex:1;
 	color:#7b7b7b;
 	vertical-align:middle;
 }
-.header .header_box i{
-	display:inline-block;
-	height:100%;
+.header .header_box img{
+ 
 	width:0.3rem;
-	margin-left: 0.1rem;
-	background-image:url(../images/ydt/x1.png);
-	background-size:0.3rem auto;
-	background-position:center;
-	background-repeat:no-repeat;
-	vertical-align:middle;
+ 
 }
 .header .header_box.active{
 	color:#000000;
@@ -35,13 +30,16 @@
 }
 .ydt_list{
 	background:#fff;
-	margin-top:0.95rem;
+	margin-top:1.75rem;
 }
 .ydt_item{
 	padding:0.35rem 0.3rem;
 	display:flex;
 	justify-content:space-between;
 	border-bottom:0.01rem solid #f2f2f2;
+}
+.ydt_item .ydt_item_content{
+	width:100%
 }
 .ydt_item .ydt_item_img{
 	margin-right:0.3rem;
@@ -133,7 +131,7 @@
 .ydt_info .ydt_item_adr{
 	color:#fff;
 	line-height:0.34rem;
-	max-height:0.64rem;
+	min-height:0.64rem;
 }
 .ydt_info .ydt_nav_adr img{
 	margin-top:0.2rem;
@@ -188,17 +186,57 @@
 	height:auto important;
 }
 .toggle{
-	position:absolute;
-	top:0.9rem;
+	position:fixed;
+	top:1.75rem;
 	background:#fff;
 	width:100%;
 	line-height:0.4rem;
 	max-width:7.5rem;
 	overflow:auto;
+	z-index:10000;
 }
 .toggle li{
 	text-align:left;
 	line-height:0.6rem;
 	padding:0 0.2rem;
 	border-bottom:0.02rem solid #ededed;
+}
+.ydt_select_adr{
+	line-height:0.8rem;
+	padding-left:0.2rem;
+	height:0.8rem;
+	background-color:#e17222;
+	position:relative;
+	width:100%;
+	z-index:1000;
+}
+.ydt_select_adr a{
+ color:#222;
+text-decoration:none;
+}
+.fiex_top{
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:100000;
+}
+.ydt_select_adr img{
+	float:left;
+	height:0.4rem;
+	line-height:0.8rem;
+	position:relative;
+	top:0.18rem;
+	margin-right:0.2rem;
+}
+.adr_inp{
+	width:6rem;
+	background:#fff;
+	height:0.5rem;
+	line-height:0.5rem;
+	border-radius:0.25rem;
+	float:left;
+	text-indent:0.3rem;
+	color:#999;
+	position: relative;
+	top:0.15rem;
 }

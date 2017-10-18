@@ -285,6 +285,7 @@
 		border-radius: .25rem;
 		background: #999999;
 		z-index: 3;
+		margin-top:0.2rem;
 	}
 	
 	.position-num div {
@@ -305,6 +306,7 @@
 		position: relative;
 		transition: all .3s;
 		overflow: hidden;
+
 	}
 	
 	.select-position div {
@@ -335,6 +337,11 @@
 		width: calc(100% - 0.48rem);
 		left: 0.48rem;
 		top: 0.05rem;
+		padding-top:0.2rem; 
+		background-size:0.45rem auto;
+		background-position:top center;
+		background-repeat:no-repeat;
+		background-image:url(../../common/images/center.png);
 	}
 	
 	.select-btn-x {

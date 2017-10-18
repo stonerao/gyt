@@ -65,6 +65,9 @@ export default {
     weixinUrl: URL + 'index.php?m=mobile&c=member_payment&a=movie_pay', //if weixin
     ydtList: URL + 'index.php?m=mobile&c=places_interface&a=places_list', //ydt list
     ydtInfo: URL + 'index.php?m=mobile&c=places_interface&a=places_detail', //ydt info
+    openid: URL + 'index.php?m=mobile&c=places_interface&a=index', //openid
+    adrlocation: URL + 'index.php?m=mobile&c=places_interface&a=get_address', //get 地址
+    get_wxopenid: URL + 'index.php?m=mobile&c=shiguang_interface&a=get_wxopenid', //get 地址
   },
   getRequest(str) {
     let url = ''
@@ -131,5 +134,13 @@ export default {
   },
   go_page() {
 
+  },
+  isWeiXin() {
+    var ua = window.navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

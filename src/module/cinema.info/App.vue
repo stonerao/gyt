@@ -96,6 +96,7 @@ export default {
     }
   },
   created() {
+    dataStore.get_wxopenid.call(this);//地方信息
     function GetRequest() {
       var url = location.search; //获取url中"?"符后的字串 
       var theRequest = new Object();

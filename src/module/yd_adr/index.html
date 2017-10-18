@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="http://byfoli.kh888.cn/website/wap/js/jquery-1.8.2.min.js"></script>
+    <meta charset="utf-8">
+    <title>场馆导航</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+</head>
+
+<body data-design-width="750">
+    <div id="app"></div>
+    <iframe id="mapPage" width="100%" height="600px" frameborder=0 scrolling='no' src="http://apis.map.qq.com/tools/locpicker?search=1&type=1&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&referer=myapp">
+    </iframe>
+    <div class="alert">
+        <div class="alert-box">
+            <div class="alert-title">
+            </div>
+            <div class="quit">
+                确定
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+window.addEventListener('message', function(event) {
+    // 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
+    var loc = event.data;
+    if (loc && loc.module == 'locationPicker') { //防止其他应用也会向该页面post信息，需判断module是否为'locationPicker'
+        //console.log(loc);
+        $.ajax({
+            url: `http://byfoli.kh888.cn/index.php?m=mobile&c=places_interface&a=location`,
+            type: 'post',
+            data: {
+                'lat': loc.latlng.lat,
+                'lng': loc.latlng.lng,
+                'address': loc.poiaddress
+            },
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success: function(result) {
+                $(".alert").css("display", "block");
+                $(".alert-title").html(result.datas.error)
+                if (result.datas.error) {
+
+                } else {
+                    window.location.href = `./yd_list.html?state=1`;
+                }
+            }
+        });
+    }
+}, false);
+$(".quit").click(function() {
+    $(".alert").fadeOut()
+})
+</script>
+<style>
+.alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.alert-box {
+    width: 80%;
+    margin: 0 10%;
+    min-height: 1.5rem;
+    background-color: #fff;
+    border-radius: 0.3rem;
+    text-align: center;
+    line-height: 2rem;
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+.alert-title {
+    border-bottom: 1px solid #ededed;
+    padding: 13px 0;
+}
+
+.quit {
+    padding: 5px 0;
+}
+</style>
+
+</html>

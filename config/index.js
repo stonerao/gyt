@@ -21,8 +21,7 @@ module.exports = {
     port: 8082,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      '/index.php': 'http://gyt.test.kh888.cn/',
+    proxyTable: { 
       '/index.php': 'http://byfoli.kh888.cn/'
 
     },

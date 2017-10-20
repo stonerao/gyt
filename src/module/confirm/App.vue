@@ -34,11 +34,14 @@
 				<p class="pay-info-head">
 					<span class="weixin" @click="vouchers('ye')" :class="{'active':isVouts}" >蓝券（微信）</span>
 					<!-- <span @click="changeDeduction('isVouts')">蓝券<img :src="img1" alt="" class="imgBtn" :style="{transform:isDeduction&& isVouts?'rotate(180deg)':'rotate(0deg)'}"></span> -->
+					<span @click="getDiscount" v-show="isDeduction && isVouts" style="float:right ">确定</span>
+					<span @click="increase(1)" v-show="isDeduction && isVouts" class="quan_btns">增加<!-- <img :src="img1" alt="" class="imgBtn"> --></span>
 				</p>
 				<ul class="pay-input" v-show="isDeduction && isVouts">
-					<li v-if="!goMoney"> 
-						<input type="text" v-model="discountVal" placeholder="请输入蓝券密码">
-						<button @click="getDiscount">确定</button>
+					<li v-if="!goMoney" v-for="item in buldMoney" style="margin-bottom:5px"> 
+						<!-- <input type="text" v-model="discountVal" placeholder="请输入蓝券密码"> -->
+						<input type="text" v-model="item.title" placeholder="请输入蓝券密码"  class="pay-input-tong">
+						
 					</li>
 					<li v-else> 
 						<span>-{{goMoney}}</span>
@@ -52,15 +55,36 @@
 			<div class="pay-info">
 				<p class="pay-info-head">
 					<span class="weixin" @click="vouchers('pay')" :class="{'active':isPay}" >橙券</span>
+					<span @click="getRedQuan" v-show="isPay" >确定</span>
+					<span @click="increase(2)" v-show="isPay" class="quan_btns">增加<!-- <img :src="img1" alt="" class="imgBtn"> --></span>
 				</p>
 				<ul class="pay-input" v-show="isPay">
-					<li v-if="!goPayMoney"> 
-						<input type="text" v-model="payVal" placeholder="请输入橙券密码" class="pay-input-tong">
+					<li v-if="!goPayMoney" v-for="item in redMoney"  style="margin-bottom:5px"> 
+						<input type="text" v-model="item.title" placeholder="请输入橙券密码" class="pay-input-tong">
 					</li>
 					<li v-else> 
 						<span>-{{goPayMoney}}</span>
 					</li>
 				</ul>
+			</div>
+			<div class="pay-info">
+				<p class="pay-info-head">
+					<span class="weixin" @click="vouchers('tong')" :class="{'active':isTong}" >通联支付</span>
+					<span @click="increase(3)" v-show="isTong">确认<!-- <img :src="img1" alt="" class="imgBtn"> --></span>
+				</p>
+				<ul class="pay-input" v-show="isTong">
+					<li v-if="!goPayMoney"   style="margin-bottom:5px"> 
+						<input type="text" v-model="tongMoney.user" placeholder="请输入通联券账号" class="pay-input-tong">
+					</li>
+					<li v-if="!goPayMoney"  style="margin-bottom:5px"> 
+						<input type="text" v-model="tongMoney.pwd" placeholder="请输入通联密码" class="pay-input-tong">
+					</li> 
+				</ul>
+			</div>
+			<div class="pay-info">
+				<p class="pay-info-head">
+					<span class="weixin" @click="vouchers('weixin')" :class="{'active':isWeixin}" >微信支付</span> 
+				</p> 
 			</div>
 		</div>
 		<div class="con-price">
@@ -77,12 +101,9 @@
 <script>
 	/*引入公共样式*/
 	import image1 from './images/icon-bottom.png'
-	import 'common/css/global.css'
-
-	import utils from 'common/js/utils'
-
-	import confirmStore from './js/data'
-
+	import 'common/css/global.css' 
+	import utils from 'common/js/utils' 
+	import confirmStore from './js/data' 
 	export default{
 		data(){
 			return{
@@ -93,6 +114,8 @@
 				isDeduction: false,
 				img1:image1,
 				isText:true,
+				isWeixin:false,
+				isTong:false,
 				price: 0,
 				discountVal: '',
 				payVal:'',
@@ -107,17 +130,30 @@
 					reg_html:""
 				},
 				loading_pay:false,
+				buldMoney:[
+					{title:''}
+				],
+				redMoney:[
+					{title:''}
+				],tongMoney:{user:'',pwd:''},
+				export_price:''
+
 			}
 		},
 		created() {
 			this.parmsData = JSON.parse(decodeURIComponent(utils.getRequest().parms.data))
-			this.price = (this.parmsData.showtime.exchange_price * this.parmsData.selectData.length/100).toFixed(2)
+			console.log(this.parmsData)
+			this.price = (this.parmsData.showtime.exchange_price * this.parmsData.selectData.length/100).toFixed(2);
+			this.export_price = parseFloat(5022/100).toFixed(2);//
+			console.log(this.export_price)
 			this.lastPrice = (this.price - this.discount).toFixed(2)
 		},
 		methods:{
 			submit() {
 				this.loading_pay=true;
-				confirmStore.order.call(this)
+				// buld
+				this.getVals();
+				confirmStore.order.call(this);
 			},
 			changeDeduction(type) {
 				if(this[type]) {
@@ -130,26 +166,30 @@
 						this.isVout = !this.isVout;
 						this.isVouts = false;
 						this.isPay = false;
+						this.isTong = false;
+						this.isWeixin = false;
 					}
 				} else if (val == "ye") {
 					if (!this.isVouts) {
 						this.isVouts = !this.isVouts;
 						this.isVout = false;
 						this.isPay = false;
+						this.isTong = false;
+						this.isWeixin = false;
 						this.isDeduction = true;
 
 					}
-				} else if (val = "pay") {
+				} else if (val == "pay") {
 					//如果买2个以上位置
-					if (this.parmsData.selectData.length > 1) {
-						this.regs.isFous = !this.regs.isFous;
-						this.regs.reg_html = "通兑卷一次只能兑换一座";
-						var me = this;
-						setTimeout(function() {
-							me.regs.isFous = !me.regs.isFous;
-						}, 2000)
-						return;
-					}					
+					// if (this.parmsData.selectData.length > 1) {
+					// 	this.regs.isFous = !this.regs.isFous;
+					// 	this.regs.reg_html = "通兑卷一次只能兑换一座";
+					// 	var me = this;
+					// 	setTimeout(function() {
+					// 		me.regs.isFous = !me.regs.isFous;
+					// 	}, 2000)
+					// 	return;
+					// }					
 					if (!this.isPay) {
 						//恢复原价
 						this.goMoney= 0;
@@ -157,11 +197,26 @@
 						this.lastPrice=this.price;
 						this.isPay = !this.isPay;
 						this.isVouts = false;
+						this.isTong = false;
+						this.isWeixin = false;
 						this.isVout = false;
 					}
+				}else if(val=='weixin'){
+					this.isVout = false;
+					this.isVouts = false;
+					this.isPay = false;
+					this.isTong = false; 
+					this.isWeixin = true;
+				}else if(val=='tong'){
+					this.isVout = false;
+					this.isVouts = false;
+					this.isPay = false;
+					this.isTong = true; 
+					this.isWeixin = false;
 				}
 			},
 			getDiscount() {
+				this.getVals();
 				if (this.discountVal.length <= 0) {
 					this.regs.isFous = !this.regs.isFous;
 					this.regs.reg_html = "请输入抵扣券密码";
@@ -170,7 +225,8 @@
 						me.regs.isFous = !me.regs.isFous;
 					}, 2000)
 					return
-				} else if (!/^\w{6}$/.test(this.discountVal)) {
+				}
+				/* else if (!/^\w{6}$/.test(this.discountVal)) {
 					this.regs.isFous = !this.regs.isFous;
 					this.regs.reg_html = "请输入正确的抵扣券密码";
 					var me = this;
@@ -178,11 +234,63 @@
 						me.regs.isFous = !me.regs.isFous;
 					}, 2000)
 					return
-				} 
+				} */
 				confirmStore.getDis.call(this)
+			},
+			getDeduction(){
+				/*get 橙券 抵消*/
+				this.getVals();
+				 
 			},
 			tabs(){
 				this.isText=!this.isText
+			},
+			increase(state){
+				if(state==1){
+					if(this.buldMoney.length<5){
+						// this.buldMoney++;
+						this.buldMoney.push({title:""})
+					}else{
+						alert('蓝券个数不能超过5个')
+					}
+				}else if(state==2){
+					if(this.redMoney.length<5){
+						// this.buldMoney++;
+						this.redMoney.push({title:""})
+					}else{
+						alert('橙券个数不能超过5个');
+						return;
+					}
+
+				}else if(state==3){ 
+					if(this.tongMoney.length<5){
+						// this.buldMoney++;
+						this.tongMoney.push({title:""})
+					}else{
+						alert('通兑券个数不能超过5个')
+					}}
+				
+
+			},
+			getVals(){
+				// buld
+				this.discountVal = [];
+				this.buldMoney.forEach((x)=>{
+					this.discountVal.push(x.title);
+				})
+				this.discountVal = this.discountVal.join(',')
+				// red
+				this.payVal = [];
+				this.redMoney.forEach((x)=>{
+					this.payVal.push(x.title);
+				}) 
+				this.payVal = this.payVal.join(',')
+				 
+			},
+			getRedQuan(){
+				//橙 确认
+				this.getVals();
+				confirmStore.orange_voucher.call(this);
 			}
 		}
 	}
@@ -396,5 +504,8 @@
 		transform:translate(-50%,-50%); 
 		font-size:0.22rem;
 		color:#fff;
+	}
+	.quan_btns{
+	float:right;margin-right: 30px;
 	}
 </style>

@@ -56,8 +56,7 @@ export default {
       + '&is_paypd=' + (!this.isVout?0:1)
       + '&password=' + this.password
       + '&cinemahalls=' + this.parmsData.showtime.hallname
-      console.log(body)
-      console.log(this.parmsData)
+    
       fetch(utils.dataUrl.submitOrderUrl, {
         method: "POST",
         headers: {
@@ -103,6 +102,35 @@ export default {
               me.regs.isFous = !me.regs.isFous;
             }, 2000)
     
+        }
+      })
+    },
+    orange_voucher(){
+      let login = utils.getLocationLogin();
+      let  body = 'key=' + '4a6f3582314abf38b9acec55e06a7ccb' +'&orange_voucher='+this.payVal
+ fetch('/index.php?m=mobile&c=member_buy&a=orange_voucher', {
+  // credentials: 'include',
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: body,
+      }).then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        } 
+      }).then((res)=>{ 
+        if(res.code==200){
+          const price = this.export_price;
+          const num = res.data;
+          parseFloat(price)*num;
+        }else{
+          this.regs.isFous = !this.regs.isFous;
+          this.regs.reg_html = res.datas.error;
+          var me = this;
+          setTimeout(function() {
+            me.regs.isFous = !me.regs.isFous;
+          }, 2000)
         }
       })
     }

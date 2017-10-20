@@ -1,4 +1,5 @@
-var URL = "http://byfoli.kh888.cn/";
+// var URL = "http://byfoli.kh888.cn/";
+var URL = "http://gytcs.test.kh888.cn/";
 export default {
   urls: {
     urls_or: URL,
@@ -58,6 +59,7 @@ export default {
     infoOrderUrl: URL + 'index.php?m=mobile&c=movie_order&a=order_info', //订单详情
     userMoneyUrl: URL + 'index.php?m=mobile&c=member_pd&a=predeposit_info', //个人
     detailedUrl: URL + 'index.php?m=mobile&c=member_fund&a=predepositlog', //明细
+    orange_voucher: URL + '/index.php?m=mobile&c=member_buy&a=orange_voucher', //橙券 计算
     cinemaInfoUrl: URL +
       'index.php?m=mobile&c=shiguang_interface&a=movies_cinema', //明细
     submitOrderUrl: URL + 'index.php?m=mobile&c=member_buy&a=moviebuy_step2',

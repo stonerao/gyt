@@ -12,8 +12,7 @@
          <li class="info-list">{{filmData.titleCn}}</li>
          <li class="info-list">{{type}}</li>
          <li class="info-list">{{filmData.state}}{{filmData.length}}</li>
-         <li class="info-list" @click="plot">{{filmData.plot}} </li>
-       
+         <li class="info-list" @click="plot">{{filmData.plot}} </li> 
        </ul>
     </div>
     <!-- <div class="movie-name bg-fff">{{active.name}}</div> -->
@@ -71,7 +70,7 @@ export default {
       urls: utils.urls,
       movieSildeOp: {
         centeredSlides: true,
-        slidesPerView: '5',
+        slidesPerView: 5,
         slideToClickedSlide: true,
         onSlideChangeEnd: (swiper)=>{
           this.active = this.movies[swiper.activeIndex]
@@ -79,7 +78,7 @@ export default {
         }
       },
       dateSildeOp: {
-        slidesPerView: 'auto'
+        slidesPerView: 'auto', 
       },
       info: null,
       type: '',

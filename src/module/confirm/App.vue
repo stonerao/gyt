@@ -142,9 +142,8 @@
 		},
 		created() {
 			this.parmsData = JSON.parse(decodeURIComponent(utils.getRequest().parms.data))
-			console.log(this.parmsData)
 			this.price = (this.parmsData.showtime.exchange_price * this.parmsData.selectData.length/100).toFixed(2);
-			this.export_price = parseFloat(5022/100).toFixed(2);//
+			this.export_price = parseFloat(parseFloat(this.parmsData.showtime.exchange_price/100).toFixed(2));// 
 			console.log(this.export_price)
 			this.lastPrice = (this.price - this.discount).toFixed(2)
 		},
@@ -273,16 +272,22 @@
 
 			},
 			getVals(){
-				// buld
+				// buld 
 				this.discountVal = [];
 				this.buldMoney.forEach((x)=>{
+					if(x.title){
 					this.discountVal.push(x.title);
+					}
 				})
+
 				this.discountVal = this.discountVal.join(',')
 				// red
 				this.payVal = [];
 				this.redMoney.forEach((x)=>{
+					if(x.title){
+						
 					this.payVal.push(x.title);
+					}
 				}) 
 				this.payVal = this.payVal.join(',')
 				 

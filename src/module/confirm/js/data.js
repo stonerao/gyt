@@ -1,4 +1,5 @@
 import utils from 'common/js/utils'
+ 
 export default {
   getDis() {
       let login = utils.getLocationLogin();
@@ -20,12 +21,37 @@ export default {
         if (response.status === 200) {
           return response.json()
         }
-      }).then((res) => {
-        console.log(res)
-        if (res.code === 200) {
-          this.goMoney = res.datas.denomination
-          this.discount = this.goMoney + this.goPayMoney
-          this.lastPrice = (this.price - this.discount).toFixed(2)
+      }).then((res) => { 
+        // if (res.code === 200) {
+        //   this.goMoney = res.datas.denomination
+        //   this.discount = this.goMoney + this.goPayMoney
+        //   this.lastPrice = (this.price - this.discount).toFixed(2)
+        // }
+        //  if(res.code==200){
+        //   let num = parseInt(res.datas);
+        //   if(!num>0){} 
+        //   const price = this.export_price; 
+        //   let allPrice = price*num;
+        //   this.lastPrice=(parseFloat(this.price)-allPrice).toFixed(2);
+        // }else{
+        //   this.regs.isFous = !this.regs.isFous;
+        //   this.regs.reg_html = res.datas.error;
+        //   var me = this;
+        //   setTimeout(function() {
+        //     me.regs.isFous = !me.regs.isFous;
+        //   }, 2000)
+        // }
+        if(res.code==200){
+          let num = parseInt(res.datas);
+          if(!num>0){}  
+          this.lastPrice=(parseFloat(this.price)-num).toFixed(2);
+        }else{
+          this.regs.isFous = !this.regs.isFous;
+          this.regs.reg_html = res.datas.error;
+          var me = this;
+          setTimeout(function() {
+            me.regs.isFous = !me.regs.isFous;
+          }, 2000)
         }
       })
     },
@@ -121,9 +147,11 @@ export default {
         } 
       }).then((res)=>{ 
         if(res.code==200){
-          const price = this.export_price;
-          const num = res.data;
-          parseFloat(price)*num;
+          let num = parseInt(res.datas);
+          if(!num>0){} 
+          const price = this.export_price; 
+          let allPrice = price*num;
+          this.lastPrice=(parseFloat(this.price)-allPrice).toFixed(2);
         }else{
           this.regs.isFous = !this.regs.isFous;
           this.regs.reg_html = res.datas.error;
@@ -135,3 +163,4 @@ export default {
       })
     }
 }
+  

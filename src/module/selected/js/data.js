@@ -1,5 +1,6 @@
 import utils from 'common/js/utils'
 
+
 export default {
   getData() {
     let id = utils.getRequest().parms.id

@@ -35,6 +35,7 @@ export default {
         this.showtimes = temp.map(item => {
           return item
         })
+        console.log(this.showtimes)
       })
   }
 }

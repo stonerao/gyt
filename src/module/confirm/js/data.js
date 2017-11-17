@@ -102,11 +102,11 @@ export default {
                 this.regs.isFous = !this.regs.isFous;
                 this.regs.reg_html = "支付成功";
                 var me = this;
-                setTimeout(function() {
+                setTimeout(function() { 
                   me.regs.isFous = !me.regs.isFous;
                   location.replace(utils.urls.orderInfoUrl + '?good_id=' + res.datas.order_id + "&order_sn=" + res.datas.order_sn)
                 }, 1000)
-            }else{
+            }else{ 
                 location.href = utils.dataUrl.weixinUrl + "&key=" + login.key + "&order_sn=" + res.datas.order_sn + "&payment_code=wxpay_jsapi";
             }
           }else{
@@ -115,8 +115,8 @@ export default {
             this.regs.reg_html = "支付成功";
             var me = this;
             setTimeout(function() {
-              me.regs.isFous = !me.regs.isFous;
-              location.replace(utils.urls.orderInfoUrl + '?good_id=' + res.datas.order_id + "&order_sn=" + res.datas.order_sn)
+              me.regs.isFous = !me.regs.isFous; 
+              // location.replace(utils.urls.orderInfoUrl + '?good_id=' + res.datas.order_id + "&order_sn=" + res.datas.order_sn)
             }, 1000)
           }
         }else {

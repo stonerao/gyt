@@ -14,7 +14,7 @@
 					<div class="position-num" v-bind:style="listPos.style">
 						<div v-for="num in maxRow">{{num}}</div>
 					</div>
-					<div class="selec-btns" v-bind:style="blockPos.style">
+					<div class="selec-btns" v-bind:style="blockPos.style" id="selec">
 						<div class="select-btn-x" v-for="(m,mIndex) in showtimes">
 							<div class="sel-btn" v-for="(n, nIndex) in m">
 								<img v-if="n && n.seatStatus == 100" :src="iconNo" class="positionIcon">
@@ -23,6 +23,26 @@
 						</div>
 					</div>
 			</v-touch>
+		</div>
+		<!-- 缩略图 -->
+		<div class="selec" style="transform: scale(0.25);position:absolute;top:1.14rem;width:6rem;overflow:auto;transform-origin:0 0;    opacity: 0.9;z-index:120000"> 
+			<v-touch tag="div" class="select-position" v-if="showtimes && showtimes.length>0"   @pinchout="selec('out')" @panmove="touchMove" @panstart="touchMove" @panend="touchEnd" v-bind:pan-options="{ threshold: 1 }">
+					<div class="position-num" v-bind:style="listPos.style" >
+						<div v-for="num in maxRow">{{num}}</div>
+					</div>
+					<div class="selec-btns" v-bind:style="blockPos.style" id="selec"  style="overflow:auto">
+						<div class="select-btn-x" v-for="(m,mIndex) in showtimes">
+							<div class="sel-btn" v-for="(n, nIndex) in m">
+								<img v-if="n && n.seatStatus == 100" :src="iconNo" class="positionIcon">
+								<img v-else-if="n && n.seatStatus == 0" :src="n.selected?iconOk:iconPosi" class="positionIcon" @click="selection($event,mIndex,nIndex)">
+							</div>
+						</div>
+					</div>
+			</v-touch>
+		</div>
+		<div style="background:#fff">
+			
+		<img src="" alt="" id="selectImg" style="width:150px">
 		</div>
 		<div class="select-site" v-if="selectData && selectData.length>0">
 			已选座位: <br>
@@ -40,11 +60,22 @@
 	import 'common/css/global.css'
 	import icon1 from './images/icon-position.png'
 	import icon2 from './images/icon-ok.png'
-	import icon3 from './images/icon-desabled.png'
-
+	import icon3 from './images/icon-desabled.png' 
 	import utils from 'common/js/utils'
-	import dataStore from './js/data'
-
+	import dataStore from './js/data' 
+	import 'common/js/html2canvas.js' 
+	var url ;
+	function canvasTouche(img){  
+			html2canvas(document.getElementById('selec'),{
+			 onrendered: function(canvas) {
+			   // img = canvas.toDataURL();//图片地址  
+			   console.log(img)
+			   document.getElementById('selectImg').src=canvas.toDataURL()
+			  },
+		})
+	 	
+		
+	}
 	export default {
 		data() {
 				return {
@@ -91,14 +122,23 @@
 					regs:{
 						isFous:false,
 						reg_html:""
-					}
+					},
+					selectImgs:''
 				}
 			},
 			created() {
 				this.infos = JSON.parse(decodeURIComponent(utils.getRequest().parms.data))
-				dataStore.getData.call(this)
+				dataStore.getData.call(this);
+				 
+
+				 
 			},
 			methods: {
+				canvasTouch(){
+					// canvasTouche(this.selectImgs);
+					 
+					
+				},
 				submit() {
 					// 如果没有选座 无法购买
 					if(this.selectData.length===0){
@@ -147,6 +187,11 @@
 					this.showtimes.splice(m, 1, temp)
 					this.price = (this.infos.showtime.exchange_price * this.selectData.length)/100
 
+					
+					setTimeout(()=>{
+					this.canvasTouch()
+						 
+					},1000 );
 				},
 				selec(type) {
 					if(type === 'in') {
@@ -169,7 +214,9 @@
 							this.scale = 1
 						}
 					}
+					
 					this.updateElementTransform()
+
 				},
 				/*移动改变位置*/
 				touchMove(e) {
@@ -195,6 +242,8 @@
 						translate: ['translate3d('+(this.blockPos.translate.x)+'px,'+(this.blockPos.translate.y) +'px,0)','scale('+this.scale+')'].join(" "),
 						width: this.blockPos.style.width
 					}
+
+					this.canvasTouch()
 				}
 			}
 	}

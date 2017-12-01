@@ -31,7 +31,7 @@
           <div class="end-time">{{item.address}}</div>
         </div>
         <div class="col">
-          <a :href="urls.cinemaDetailUrl+'?id='+item.id + '&movieId='+good_id"class="btn-buy">购票</a>
+          <a :href="urls.cinemaDetailUrl+'?id='+item.id + '&movieId='+good_id" class="btn-buy">购票</a>
         </div>
       </div>
     </div>

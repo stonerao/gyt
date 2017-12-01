@@ -29,7 +29,11 @@ export default {
           if(href.parms['_']) {
             location.replace(decodeURIComponent(href.parms['_']))
           } else {
-            location.replace(utils.urls.personUrl)
+            if(utils.getRequest().parms.id>0){
+              window.location.href = `${this.urls.selectUrl}?id=${utils.getRequest().parms.id}&data=${utils.getRequest().parms.data}`
+            }else{
+              location.replace(utils.urls.personUrl)
+            }
           }
         }
       })

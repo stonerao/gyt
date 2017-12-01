@@ -1,5 +1,5 @@
 <template>
-	<div class="confirm">
+	<div class="confirm" style="padding-bottom:0.5rem">
 		<div class="con-info">
 			<ul >
 				<li class="info-list">{{parmsData.movie.name}}</li>
@@ -32,7 +32,7 @@
 			</div>
 			<div class="pay-info">
 				<p class="pay-info-head">
-					<span class="weixin" @click="vouchers('ye')" :class="{'active':isVouts}" >蓝券（微信）</span>
+					<span class="weixin" @click="vouchers('ye')" :class="{'active':isVouts}" >蓝券</span>
 					<!-- <span @click="changeDeduction('isVouts')">蓝券<img :src="img1" alt="" class="imgBtn" :style="{transform:isDeduction&& isVouts?'rotate(180deg)':'rotate(0deg)'}"></span> -->
 					<span @click="getDiscount" v-show="isDeduction && isVouts" style="float:right ">确定</span>
 					<span @click="increase(1)" v-show="isDeduction && isVouts" class="quan_btns">增加<!-- <img :src="img1" alt="" class="imgBtn"> --></span>
@@ -67,10 +67,10 @@
 					</li>
 				</ul>
 			</div>
-			<div class="pay-info">
+			<!-- <div class="pay-info">
 				<p class="pay-info-head">
 					<span class="weixin" @click="vouchers('tong')" :class="{'active':isTong}" >通联支付</span>
-					<span @click="increase(3)" v-show="isTong">确认<!-- <img :src="img1" alt="" class="imgBtn"> --></span>
+					<span @click="increase(3)" v-show="isTong">确认 </span>
 				</p>
 				<ul class="pay-input" v-show="isTong">
 					<li v-if="!goPayMoney"   style="margin-bottom:5px"> 
@@ -80,7 +80,7 @@
 						<input type="text" v-model="tongMoney.pwd" placeholder="请输入通联密码" class="pay-input-tong">
 					</li> 
 				</ul>
-			</div>
+			</div> -->
 			<div class="pay-info">
 				<p class="pay-info-head">
 					<span class="weixin" @click="vouchers('weixin')" :class="{'active':isWeixin}" >微信支付</span> 
@@ -91,7 +91,7 @@
 			<span class="pay-color-gre">应付金额</span>
 			<span class="con-money">￥{{lastPrice<0?"0":lastPrice}}</span>
 		</div>
-		<div class="price-ok" @click="submit">确认支付</div>
+		<div class="price-ok" @click="submit" style="position: fixed;">确认支付</div>
 		<span class="modal-box" v-show="regs.isFous">{{regs.reg_html}}</span>
 		<div class="loading_pay" v-if="loading_pay">
 			<p>正在支付中，请稍等!</p>
@@ -143,8 +143,7 @@
 		created() {
 			this.parmsData = JSON.parse(decodeURIComponent(utils.getRequest().parms.data))
 			this.price = (this.parmsData.showtime.exchange_price * this.parmsData.selectData.length/100).toFixed(2);
-			this.export_price = parseFloat(parseFloat(this.parmsData.showtime.exchange_price/100).toFixed(2));// 
-			console.log(this.export_price)
+			this.export_price = parseFloat(parseFloat(this.parmsData.showtime.exchange_price/100).toFixed(2));//  
 			this.lastPrice = (this.price - this.discount).toFixed(2)
 		},
 		methods:{

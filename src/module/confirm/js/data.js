@@ -111,12 +111,12 @@ export default {
             }
           }else{
             /*跳转*/
-            this.regs.isFous = !this.regs.isFous;
-            this.regs.reg_html = "支付成功";
+            // this.regs.isFous = !this.regs.isFous;
+            // this.regs.reg_html = "支付成功";
             var me = this;
             setTimeout(function() {
               me.regs.isFous = !me.regs.isFous; 
-              // location.replace(utils.urls.orderInfoUrl + '?good_id=' + res.datas.order_id + "&order_sn=" + res.datas.order_sn)
+              location.href = utils.dataUrl.weixinUrl + "&key=" + login.key + "&order_sn=" + res.datas.order_sn + "&payment_code=wxpay_jsapi";
             }, 1000)
           }
         }else {
@@ -133,9 +133,9 @@ export default {
     },
     orange_voucher(){
       let login = utils.getLocationLogin();
-      let  body = 'key=' + '4a6f3582314abf38b9acec55e06a7ccb' +'&orange_voucher='+this.payVal
+      let  body = 'key=' + login.key +'&orange_voucher='+this.payVal
  fetch('/index.php?m=mobile&c=member_buy&a=orange_voucher', {
-  // credentials: 'include',
+  credentials: 'include',
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"

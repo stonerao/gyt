@@ -2,8 +2,7 @@ import utils from 'common/js/utils'
 export default{
 	data(){
 		let location = utils.getLocationLogin();	
-	    var info = "&key="+location.key+"&curpage="+this.curpage+"&page="+this.page;
-	    console.log(info);
+	    var info = "&key="+location.key+"&curpage="+this.curpage+"&page="+this.page; 
 	    fetch(utils.dataUrl.detailedUrl+info).then((response) => {
 	      if (response.status === 200) {
 	        return response.json()

@@ -42,7 +42,7 @@
           <div class="c-price">原价￥{{item.oPrice}}</div>
         </div>
         <div class="col">
-          <a v-if="item.status===0" :href="urls.selectUrl + '?id='+item.id +'&data='+item.parms" class="btn-buy">购票</a>
+          <a v-if="item.status===0" @click="selectHerf(item.id,item.parms)" class="btn-buy">购票</a>
           <span v-else class="btn-buy">停止售票</span>
         </div>
       </div>
@@ -125,6 +125,13 @@ export default {
     changeDate(val) {
       this.dateActive = val
       dataStore.getShowtimes.call(this)
+    },
+    selectHerf(id,data){
+      if (!utils.getLocationLogin().key && !utils.getLocationLogin().userid) {
+        window.location.href = `${this.urls.loginUrl}?id=${id}&data=${data}`
+      }else{ 
+        window.location.href = `${this.urls.selectUrl}?id=${id}&data=${data}`
+      }
     }
   },
   components: {

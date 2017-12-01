@@ -13,7 +13,7 @@ export default {
       }).then((res) => {
         console.log(res);
         this.infos=res.datas.order_info;
-        this.o_price=(parseFloat(this.infos.order_amount)-parseFloat(this.infos.deduction_amount));
+        this.o_price=this.infos.order_amount;
          /*是否支付*/
         this.order_state = res.datas.order_info.order_state;
         this.order_sn = res.datas.order_info.order_sn

@@ -1,6 +1,6 @@
-// var URL = "http://byfoli.kh888.cn/";
-// var URL = "http://gytcs.test.kh888.cn/";
-var URL = "/";
+var URL = "http://byfoli.kh888.cn/";
+// var URL = "http://gyt.temp.kh888.cn/";
+// var URL = "/";
 export default {
   urls: {
     urls_or: URL,
